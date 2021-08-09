@@ -105,4 +105,90 @@ public class StringProblems {
 			return rightIndex - leftIndex - 1;
 		}
 	}
+
+	/*
+	* #6 ZigZag Conversion
+	* The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this:
+	*  (you may want to display this pattern in a fixed font for better legibility)
+		P   A   H   N
+		A P L S I I G
+		Y   I   R
+		And then read line by line: "PAHNAPLSIIGYIR"
+	* */
+	static class ZigZagConversion{
+		public String convert(String s, int numRows) {
+			String[] resultArray = new String[numRows];
+			for(int i = 0; i < numRows; i++){
+				resultArray[i] = "";
+			}
+			if(numRows == 1) return s;
+			for(int i = 0; i < s.length(); i++){
+				int zigNum = numRows*2 - 2;
+				int zigIndex = i % zigNum;
+				if(zigIndex < numRows){
+					resultArray[zigIndex] =
+							resultArray[zigIndex] + s.charAt(i);
+				}else {
+					resultArray[zigNum-zigIndex] =
+							resultArray[zigNum-zigIndex] + s.charAt(i);
+				}
+			}
+
+			String resultString = "";
+			for(int i = 0; i < numRows; i++){
+				resultString =
+						resultString + resultArray[i];
+			}
+			return resultString;
+		}
+
+		public String convert1(String s, int numRows) {
+			if(numRows == 1) return s;
+
+			int singleZipNum = numRows*2 - 2;
+			int loop = s.length() / singleZipNum;
+			String resultString = "";
+			for(int i = 0; i < numRows; i++){
+				int j = i;
+				if(j == 0 || j == (numRows-1)){
+					while(j < s.length()){
+						resultString =
+								resultString + s.charAt(j);
+						j = j + singleZipNum;
+					}
+				}else {
+					int gapParam = numRows - i -1;
+					while (j < s.length()){
+						int gap = j + gapParam*2;
+						resultString =
+								resultString + s.charAt(j);
+						if(gap < s.length()){
+							resultString =
+									resultString + s.charAt(gap);
+						}
+						j = j + singleZipNum;
+					}
+				}
+			}
+			return resultString;
+		}
+
+		public String convert2(String s, int numRows) {
+			if(numRows == 1) return s;
+
+			int singleZipNum = numRows*2 - 2;
+			int n = s.length();
+			StringBuilder resultString =
+					new StringBuilder();
+			for(int i = 0; i < numRows; i++){
+				for (int j = 0; j+i < n; j += singleZipNum){
+					resultString.append(s.charAt(j+i));
+					if(i != 0 && i != (numRows-1) && (j+singleZipNum-i) < n){
+						resultString.append(s.charAt(j+singleZipNum-i));
+					}
+				}
+			}
+			return resultString.toString();
+		}
+	}
 }

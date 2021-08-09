@@ -42,4 +42,23 @@ public class ArraysTest {
 		testData3.output = 1;
 		Assert.assertEquals(testClass.findMedianSortedArrays(testData3.nums1, testData3.nums2), testData3.output);
 	}
+
+	class ZigZagConversionTestData{
+		String input;
+		int numRows;
+		String output;
+	}
+
+	@Test
+	void testZigZagConversion(){
+		ZigZagConversionTestData testData0 =
+				new ZigZagConversionTestData();
+		testData0.input = "PAYPALISHIRING";
+		testData0.numRows = 4;
+		testData0.output = "PINALSIGYAHRPI";
+
+		StringProblems.ZigZagConversion zigZagConversion =
+				new StringProblems.ZigZagConversion();
+		Assert.assertEquals(zigZagConversion.convert2(testData0.input, testData0.numRows), testData0.output);
+	}
 }
