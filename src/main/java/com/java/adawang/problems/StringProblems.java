@@ -3,31 +3,6 @@ package com.java.adawang.problems;
 import java.util.HashSet;
 
 public class StringProblems {
-	/*
-	* Given a string s, find the length of the longest
-	* substring without repeating characters.
-	* #3 Medium
-	* */
-	static class LengthOfLongestSubstring{
-		public int lengthOfLongestSubstring(String s) {
-			int maxLength = 0;
-			int start = 0;
-			int end = 0;
-			HashSet longestSubstring = new HashSet();
-			while(end < s.length()){
-				if(longestSubstring.add(s.charAt(end))){
-					end ++;
-					maxLength = Math.max(maxLength,
-							longestSubstring.size());
-				}else{
-					longestSubstring.remove(s.charAt(start));
-					start++;
-				}
-			}
-			return maxLength;
-		}
-	}
-
 	/* #5 Longest Palindromic Substring
 
 	* Given a string s, return the longest palindromic substring in s.
@@ -189,6 +164,81 @@ public class StringProblems {
 				}
 			}
 			return resultString.toString();
+		}
+	}
+
+	/* #8 String to Integer (atoi)
+	* */
+	static class StringToInteger{
+		public int myAtoi0(String str) {
+			if (str.isEmpty()) return 0;
+			int sign = 1, base = 0, i = 0;
+			while (i < str.length() && str.charAt(i) == ' ')
+				i++;
+			if (i < str.length() && (str.charAt(i) == '-' || str.charAt(i) == '+'))
+				sign = str.charAt(i++) == '-' ? -1 : 1;
+			while (i < str.length() && str.charAt(i) >= '0' && str.charAt(i) <= '9') {
+				if (base > Integer.MAX_VALUE / 10 || (base == Integer.MAX_VALUE / 10 && str.charAt(i) - '0' > 7)) {
+					return (sign == 1) ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+				}
+				base = 10 * base + (str.charAt(i++) - '0');
+			}
+			return base * sign;
+		}
+
+		public int myAtoi(String s) {
+			Integer resInteger = null;
+			int sign = 0;
+			for(int i = 0; i < s.length(); i++){
+				char temp = s.charAt(i);
+				if(temp == ' '){
+					if(resInteger == null && sign == 0) continue;
+					else break;
+				}else if(temp == '+'){
+					if(resInteger != null) break;
+					else if(sign != 0) break;
+					else sign = 1;
+				}else if(temp == '-') {
+					if(resInteger != null) break;
+					else if(sign != 0) break;
+					else sign = -1;
+				}else if(Character.isDigit(temp)){
+					int tempInt =
+							Character.getNumericValue(temp);
+					if(resInteger == null) {
+						resInteger = tempInt;
+						continue;
+					}
+					if(sign > -1){
+						if(resInteger > Integer.MAX_VALUE/10){
+							return  Integer.MAX_VALUE;
+						}else if(resInteger == Integer.MAX_VALUE/10){
+							if(tempInt < 7) resInteger = resInteger*10 + tempInt;
+							else return Integer.MAX_VALUE;
+						}else {
+							resInteger =
+									resInteger*10 + tempInt;
+						}
+					}else {
+						int nResInteger = resInteger*sign;
+						if(nResInteger < Integer.MIN_VALUE/10){
+							return Integer.MIN_VALUE;
+						}else if(nResInteger == Integer.MIN_VALUE/10){
+							if(tempInt < 8) resInteger =
+									resInteger*10 + tempInt;
+							else return Integer.MIN_VALUE;
+						}else {
+							resInteger =
+									resInteger*10 + tempInt;
+						}
+					}
+				}else {
+					break;
+				}
+			}
+			if(resInteger==null) return 0;
+			else if(sign == 0) return resInteger;
+			else return resInteger*sign;
 		}
 	}
 }

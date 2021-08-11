@@ -2,7 +2,6 @@ package com.java.adawang.problems;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import com.java.adawang.problems.HashTable;
 
 public class HashTableTest {
 	class TwoSumTestData{
@@ -17,7 +16,7 @@ public class HashTableTest {
 
 	@Test
 	void testTwoSum(){
-		HashTable.TwoSum twoSum = new HashTable.TwoSum();
+		HashmapHashset.TwoSum twoSum = new HashmapHashset.TwoSum();
 		TwoSumTestData testData0 = new TwoSumTestData();
 		testData0.input = new int[] {2,7,11,15};
 		testData0.output = new int[] {0,1};
