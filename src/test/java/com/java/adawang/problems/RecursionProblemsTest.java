@@ -18,8 +18,8 @@ public class RecursionProblemsTest {
 		//["aa", "a", false] ["aa", "a*", true]
 		//["ab", ".*", true] ["aab", "c*a*b", true]
 		//["aaa", "ab*a*c*a", true]
-		testData.inputS = "aaa";
-		testData.inputP = "ab*a*c*a";
+		testData.inputS = "aab";
+		testData.inputP = "c*a*b";
 		testData.output = true;
 
 		RecursionProblems.RegularExpressionMatching regularExpressionMatching = new RecursionProblems.RegularExpressionMatching();
