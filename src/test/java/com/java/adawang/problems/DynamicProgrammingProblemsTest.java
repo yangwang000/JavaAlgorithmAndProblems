@@ -2,6 +2,7 @@ package com.java.adawang.problems;
 
 import com.java.adawang.problems.DynamicProgrammingProblems;
 import org.testng.Assert;
+import org.testng.annotations.Test;
 
 public class DynamicProgrammingProblemsTest {
 	class RegularExpressionMatchingTestData{
@@ -10,6 +11,7 @@ public class DynamicProgrammingProblemsTest {
 		boolean output;
 	}
 
+	@Test
 	void testRegularExpressionMatching(){
 		RegularExpressionMatchingTestData testData =
 				new RegularExpressionMatchingTestData();
@@ -18,14 +20,14 @@ public class DynamicProgrammingProblemsTest {
 //		["ab", ".*", true]
 //		["aab", "c*a*b", true]
 //		["mississippi", "mis*is*p*.", false]
-//		["aaa", "ab*a*c*a", false]
-//		["aaa", "a*a", false]
-		testData.patter = "a";
-		testData.text = "aa";
-		testData.output = false;
+//		["aaa", "ab*a*c*a", true]
+//		["aaa", "a*a", true]
+		testData.patter = ".*";
+		testData.text = "ab";
+		testData.output = true;
 
 		DynamicProgrammingProblems.RegularExpressionMatching testClass =
 				new DynamicProgrammingProblems.RegularExpressionMatching();
-		Assert.assertEquals(testClass.isMatchTopDown(testData.text, testData.patter), testData.output);
+		Assert.assertEquals(testClass.isMatchBottomUp1(testData.text, testData.patter), testData.output);
 	}
 }

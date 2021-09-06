@@ -169,6 +169,35 @@ public class DynamicProgrammingProblems {
 			}
 			return dp[0][0];
 		}
+
+		public boolean isMatchBottomUp1(String text,
+										String pattern){
+			boolean[][] match =
+					new boolean[text.length()+1][pattern.length()+1];
+			match[0][0] = true;
+//			deal with a* a*b* a*b*c*
+			for(int i = 1; i < pattern.length()+1; i++){
+				if(pattern.charAt(i-1) == '*'){
+					match[0][i] = match[0][i-2];
+				}
+			}
+			for(int i = 1; i < text.length()+1; i++){
+				for(int j = 1; j < pattern.length()+1; j++){
+					if(pattern.charAt(j-1) == '.' || pattern.charAt(j-1) == text.charAt(i-1)){
+						match[i][j] = match[i-1][j-1];
+					}else if(pattern.charAt(j-1) == '*'){
+						match[i][j] = match[i][j-2];
+						if(pattern.charAt(j-2)=='.' || pattern.charAt(j-2) == text.charAt(i-1))	{
+							match[i][j] =
+									match[i][j] || match[i-1][j];
+						}
+					}else {
+						match[i][j] = false;
+					}
+				}
+			}
+			return match[text.length()][pattern.length()];
+		}
 	}
 
 	public static void main(String[] args){
