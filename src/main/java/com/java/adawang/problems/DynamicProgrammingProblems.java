@@ -200,14 +200,112 @@ public class DynamicProgrammingProblems {
 		}
 	}
 
-	public static void main(String[] args){
-		int key = 0;
-		int[][] table = new int[2][3];
-		for(int i = 0; i < 3; i++){
-			for(int j = 0; j < 2; j++){
-				table[i][j] = key;
-				System.out.println(key++);
+	static class CutRodProblem{
+//		Problem from <Introduction to algorithms 3rd
+//		edition> Chapter 15
+//		top-down procedure
+		public static int memorizedCutRod(int[] priceTable,
+										  int rodLength){
+			int[] revenue = new int[rodLength+1];
+			for(int i=0; i<=rodLength; i++)
+				revenue[i] = Integer.MIN_VALUE;
+			return memorizedCutRodAux(priceTable,
+					rodLength, revenue);
+		}
+		static int memorizedCutRodAux(int[] priceTable,
+									  int rodLength,
+									  int[] revenue){
+			int maxRev = Integer.MIN_VALUE;
+			if(revenue[rodLength] >= 0)
+				return revenue[rodLength];
+			if(rodLength == 0){
+				maxRev = 0;
+			}else {
+				maxRev = Integer.MIN_VALUE;
+				for(int i=1; i<=rodLength; i++){
+					int tempRev =
+							priceTable[i] + memorizedCutRodAux(priceTable, rodLength-i, revenue);
+					if(tempRev > maxRev)
+						maxRev = tempRev;
+				}
+				revenue[rodLength] = maxRev;
+			}
+			return maxRev;
+		}
+
+//		bottom-up
+		public static int bottomUpCutRod(int[] priceTable
+				, int rodLength){
+			int[] revenue = new int[rodLength+1];
+			revenue[0] = 0;
+			for(int i=1; i<=rodLength; i++){
+				int maxRev = Integer.MIN_VALUE;
+				for(int j=1; j<=i; j++){
+					int tempRev =
+							priceTable[j] + revenue[i-j];
+					if(tempRev > maxRev)
+						maxRev = tempRev;
+				}
+				revenue[i] = maxRev;
+			}
+			return revenue[rodLength];
+		}
+	}
+
+	static class MatrixChainMultiplication{
+		public static Object[] matrixChainOrder(int[] matrixChainSize){
+			int n = matrixChainSize.length-1;
+//			array m is the scalar multiplication needed
+//			when compute the matrix
+			int[][] m = new int[n+1][n+1];
+			int[][] s = new int[n+1][n+1];
+			for(int i=0; i<=n; i++){
+				m[i][i] = 0;
+			}
+			for(int l=2; l<=n; l++){//l is the chain length
+				for(int i=1; i<=(n-l+1); i++){
+					int j = i+l-1;
+					m[i][j] = Integer.MAX_VALUE;
+					for(int k=i; k<=j-1; k++){
+						int q =
+								m[i][k] + m[k+1][j] + matrixChainSize[i-1]*matrixChainSize[k]*matrixChainSize[j];
+						if(q < m[i][j]){
+							m[i][j] = q;
+							s[i][j] = k;
+						}
+					}
+				}
+			}
+			return new Object[]{m,s};
+		}
+
+		public static void printOptimalParens(int[][] s,
+											  int i, int j){
+			if(i==j){
+				System.out.print("A"+Integer.toString(i));
+			}else {
+				System.out.print("(");
+				printOptimalParens(s,i,s[i][j]);
+				printOptimalParens(s,s[i][j]+1,j);
+				System.out.print(")");
 			}
 		}
 	}
+
+	public static void main(String[] args){
+//		//test memorizedCutRod
+//		int[] priceTable = new int[]{0,1,5,8,9,10,17,17,20,
+//				24,30};
+//		int maxRev =
+//				CutRodProblem.memorizedCutRod(priceTable,
+//						4);
+//		System.out.println(maxRev);
+
+//		//test MatrixChainMultiplication
+//		int[] p = new int[]{30,35,15,5,10,20,25};
+//		Object[] result =
+//				MatrixChainMultiplication.matrixChainOrder(p);
+//		MatrixChainMultiplication.printOptimalParens((int[][]) result[1], 1, 6);
+	}
+
 }
