@@ -292,6 +292,47 @@ public class DynamicProgrammingProblems {
 		}
 	}
 
+	static class LongestCommonSubsequence{
+		public static Object[] longestCommonSubseq(char[] x, char[] y){
+			int m = x.length;
+			int n = y.length;
+			char[][] b = new char[m+1][n+1];
+			int[][] c = new int[m+1][n+1];
+			for(int i = 0; i <= m; i++)
+				c[i][0] = 0;
+			for(int i = 0; i <= n; i++)
+				c[0][i] = 0;
+			for(int i = 1; i <= m; i++){
+				for(int j = 1; j <= n; j++){
+					if(x[i-1] == y[j-1]){
+						c[i][j] = c[i-1][j-1] + 1;
+						b[i][j] = 'D';
+					}else if(c[i-1][j] >= c[i][j-1]){
+						c[i][j] = c[i-1][j];
+						b[i][j] = 'U';
+					}else {
+						c[i][j] = c[i][j-1];
+						b[i][j] = 'L';
+					}
+				}
+			}
+			return new  Object[]{c,b};
+		}
+
+		public static void printLongestCommonSubseq(char[][] b, char[] x, int i, int j){
+			if(i==0 || j==0)
+				return;
+			if(b[i][j] == 'D'){
+				printLongestCommonSubseq(b, x, i-1, j-1);
+				System.out.print(x[i-1]);
+			}else if(b[i][j] == 'U'){
+				printLongestCommonSubseq(b, x, i-1, j);
+			}else {
+				printLongestCommonSubseq(b, x, i, j-1);
+			}
+		}
+	}
+
 	public static void main(String[] args){
 //		//test memorizedCutRod
 //		int[] priceTable = new int[]{0,1,5,8,9,10,17,17,20,
@@ -306,6 +347,12 @@ public class DynamicProgrammingProblems {
 //		Object[] result =
 //				MatrixChainMultiplication.matrixChainOrder(p);
 //		MatrixChainMultiplication.printOptimalParens((int[][]) result[1], 1, 6);
-	}
 
+
+		char[] x = new char[]{'a','b','c','b','d','a','b'};
+		char[] y = new char[]{'b','d','c','a','b','a'};
+		Object[] result =
+				LongestCommonSubsequence.longestCommonSubseq(x,y);
+		LongestCommonSubsequence.printLongestCommonSubseq((char[][]) result[1], x, 7, 6);
+	}
 }
