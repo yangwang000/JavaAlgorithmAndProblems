@@ -333,7 +333,46 @@ public class DynamicProgrammingProblems {
 		}
 	}
 
+	static class OptimalBinarySearchTree{
+		public static Object[] optimalBST(double[] p,
+										  double[] q,
+										  int n){
+			double[][] e = new double[n+2][n+2];
+			double[][] w = new double[n+2][n+2];
+			double[][] root = new double[n+1][n+1];
+			for(int i = 1; i <= n+1; i++){
+				e[i][i-1] = q[i-1];
+				w[i][i-1] = q[i-1];
+			}
+			for(int l = 1; l <= n; l++){
+				for(int i = 1; i<= n-l+1; i++){
+					int j = i+l-1;
+					e[i][j] = Double.MIN_VALUE;
+					w[i][j] = w[i][j-1] + p[j] + q[j];
+					for(int r = i; r <= j; r++){
+						double t =
+								e[i][r-1] + e[r+1][j] + w[i][j];
+						if(t < e[i][j]){
+							e[i][j] = t;
+							root[i][j] = r;
+						}
+					}
+				}
+			}
+			return new Object[]{e, root};
+		}
+	}
+
 	public static void main(String[] args){
+		/* more problems to be solved on Chapter 15
+		problem section*/
+//		//test OptimalBinarySearchTree
+//		double[] p = {0, 0.15, 0.1, 0.05, 0.1, 0.2};
+//		double[] q = {0.05, 0.1, 0.05, 0.05, 0.05, 0.1};
+//		Object[] result =
+//				OptimalBinarySearchTree.optimalBST(p, q, 5);
+
+
 //		//test memorizedCutRod
 //		int[] priceTable = new int[]{0,1,5,8,9,10,17,17,20,
 //				24,30};
@@ -342,6 +381,7 @@ public class DynamicProgrammingProblems {
 //						4);
 //		System.out.println(maxRev);
 
+
 //		//test MatrixChainMultiplication
 //		int[] p = new int[]{30,35,15,5,10,20,25};
 //		Object[] result =
@@ -349,10 +389,11 @@ public class DynamicProgrammingProblems {
 //		MatrixChainMultiplication.printOptimalParens((int[][]) result[1], 1, 6);
 
 
-		char[] x = new char[]{'a','b','c','b','d','a','b'};
-		char[] y = new char[]{'b','d','c','a','b','a'};
-		Object[] result =
-				LongestCommonSubsequence.longestCommonSubseq(x,y);
-		LongestCommonSubsequence.printLongestCommonSubseq((char[][]) result[1], x, 7, 6);
+//		//test LongestCommonSubsequence
+//		char[] x = new char[]{'a','b','c','b','d','a','b'};
+//		char[] y = new char[]{'b','d','c','a','b','a'};
+//		Object[] result =
+//				LongestCommonSubsequence.longestCommonSubseq(x,y);
+//		LongestCommonSubsequence.printLongestCommonSubseq((char[][]) result[1], x, 7, 6);
 	}
 }
