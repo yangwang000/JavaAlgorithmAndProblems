@@ -2,7 +2,6 @@ package com.java.adawang.problems;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import com.java.adawang.problems.Arrays;
 
 public class ArraysTest {
 	class FindMedianSortedArraysTestData{
@@ -17,8 +16,8 @@ public class ArraysTest {
 		testData0.nums1 = new int[] {1,3};
 		testData0.nums2 = new int[] {2};
 		testData0.output = 2.0;
-		Arrays.MedianOfTwoSortedArrays testClass =
-				new Arrays.MedianOfTwoSortedArrays();
+		ArraysProblem.MedianOfTwoSortedArrays testClass =
+				new ArraysProblem.MedianOfTwoSortedArrays();
 		Assert.assertEquals(testClass.findMedianSortedArrays(testData0.nums1, testData0.nums2), testData0.output);
 
 		FindMedianSortedArraysTestData testData1 =
