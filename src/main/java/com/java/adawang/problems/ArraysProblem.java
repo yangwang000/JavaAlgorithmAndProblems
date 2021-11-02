@@ -2,6 +2,7 @@ package com.java.adawang.problems;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ArraysProblem {
@@ -99,18 +100,80 @@ public class ArraysProblem {
 	}
 
 	static class XSum{
-		public int[] twoSum(int[] nums, int target){
+		public static List<List<Integer>> threeSum(int[] nums) {
+			List<List<Integer>> result = new ArrayList<>();
 			Arrays.sort(nums);
-			throw new IllegalArgumentException("No two sum solution");
+			for(int i = 0; i < nums.length - 2; i++){
+				if(i==0 || nums[i] != nums[i-1]){
+					int head = i + 1, tail = nums.length -1,
+							sum = 0 - nums[i];
+					while(head < tail){
+						if(nums[head] + nums[tail] == sum){
+							result.add(Arrays.asList(nums[i],
+									nums[head], nums[tail]));
+							while(head < tail && nums[head] == nums[head+1]) head++;
+							while(head < tail && nums[tail] == nums[tail-1]) tail--;
+							head++;
+							tail--;
+						}else if(nums[head] + nums[tail] > sum){
+							tail--;
+						}else {
+							head++;
+						}
+					}
+				}
+			}
+			return result;
 		}
 
-		public List<List<Integer>> threeSum(int[] nums) {
-			List<List<Integer>> result = new ArrayList<>();
-			return result;
+		public static int threeSumClosest(int[] nums,
+									int target) {
+			if(nums.length < 3)
+				throw new IllegalArgumentException(
+						"illegal input");
+			int res =
+					nums[0] + nums[1] + nums[nums.length-1];
+			Arrays.sort(nums);
+			for(int i = 0; i < nums.length - 2; i++){
+				int head = i + 1;
+				int tail = nums.length - 1;
+				while (head < tail){
+					int sum =
+							nums[i] + nums[head] + nums[tail];
+					if(sum == target){
+						return sum;
+					}else if(sum > target){
+						tail--;
+					}else {
+						head++;
+					}
+					int a = (target > res) ?
+							target - res : res - target;
+					long b = (target > sum) ?
+							target - sum : sum - target;
+					if( b < a ){
+						res = sum;
+					}
+				}
+			}
+			return res;
 		}
 	}
 
 	public static void main(String[] args){
+		//test threeSumClosest
+		int[] input = new int[] {-1,2,1,-4};
+		input = new int[] {0,0,0};
+		input = new int[] {-3,-2,-5,3,-4};
+		int output = XSum.threeSumClosest(input, -1);
+		System.out.println(output);
+
+//		//test threeSum
+//		int[] nums = new int[] {-1,0,1,2,-1,-4};
+//		//[[-1,-1,2],[-1,0,1]]
+//		List<List<Integer>> result = XSum.threeSum(nums);
+//		System.out.println(result);
+
 //		//test ContainerWithMostWater
 //		int[] height = new int[] {1,8,6,2,5,4,8,3,7};//49
 ////		int[] height = new int[] {1,1};//1
@@ -128,17 +191,15 @@ public class ArraysProblem {
 //				ContainerWithMostWater.maxArea(height);
 //		System.out.println(maxArea);
 
-		//test twoSum
-		int[] input = new int[]	{2,7,11,15};
-		int[] output = new int[] {0,1};
-		int target = 9;
-
-		input = new int[] {3,2,4};
-		output = new int[] {1,2};
-		target = 6;
-
-		input = new int[] {3,3};
-		target = 6;
-		output = new int[] {0,1};
+//		//test twoSum
+//		int[] input = new int[]	{2,7,11,15};
+//		int[] output = new int[] {0,1};
+//		int target = 9;
+//		input = new int[] {3,2,4};
+//		output = new int[] {1,2};
+//		target = 6;
+//		input = new int[] {3,3};
+//		target = 6;
+//		output = new int[] {0,1};
 	}
 }
