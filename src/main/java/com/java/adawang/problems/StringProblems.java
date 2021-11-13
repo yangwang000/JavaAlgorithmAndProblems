@@ -1,83 +1,72 @@
 package com.java.adawang.problems;
 
-import java.util.HashSet;
+import java.util.*;
 
 public class StringProblems {
-	/* #5 Longest Palindromic Substring
+	static class LetterCombinationsofPhoneNumber{
+		private static List<String> combinations =
+				new ArrayList<>();
+		private static Map<Character, String> letters = Map.of(
+				'2', "abc", '3', "def", '4', "ghi", '5', "jkl",
+				'6', "mno", '7', "pqrs", '8', "tuv", '9', "wxyz");
+		private static String phoneDigits;
 
-	* Given a string s, return the longest palindromic substring in s.
-	*Example 1:
-	Input: s = "babad"
-	Output: "bab"
-	Note: "aba" is also a valid answer.
-
-	* Example 2:
-	Input: s = "cbbd"
-	Output: "bb"
-
-	* Example 3:
-	Input: s = "a"
-	Output: "a"
-
-	* Example 4:
-	Input: s = "ac"
-	Output: "a"
-	*
-	* Approach 3: Dynamic Programming
-	* To improve over the brute force solution, we first observe how we can avoid unnecessary re-computation while validating palindromes.
-	* Consider the case "ababa". If we already knew that "bab" is a palindrome,
-	* it is obvious that "ababa" must be a palindrome since the two left and right end letters are the same.
-	*
-	* We define P(i,j) as following:
-	* P(i,j) = true, if the substring Si...Sj is a
-	* palindrome.
-	* P(i,j) = false, otherwise.
-	*
-	* Therefore P(i,j) = (P(i+1, j-1) and Si==Sj)
-	*
-	* The base cases are:
-	* P(i,i) = true
-	* P(i, i+1) = (Si==Si+1)
-	*
-	* This yields a straight forward DP solution, which we first initialize the one and two letters palindromes,
-	* and work our way up finding all three letters palindromes, and so on...
-
-	Approach 5: Manacher's Algorithm
-	There is even an O(n) algorithm called Manacher's algorithm.
-	However, it is a non-trivial algorithm, and no one expects you to come up with this algorithm in a 45 minutes coding session.
-	But, please go ahead and understand it, I promise it will be a lot of fun.
-	* */
-	static class LongestPalindrome{
-		/*
-		** Approach 4: Expand Around Center
-		 * We observe that a palindrome mirrors around its center.
-		 * Therefore, a palindrome can be expanded from its center, and there are only 2n−1 such centers.
-		 * You might be asking why there are 2n - 1 but not n centers? The reason is the center of a palindrome can be in between two letters.
-		 * Such palindromes have even number of letters (such as "abba") and its center are between the two 'b's.
-		* */
-		String longestPalindrome(String s){
-			if(s==null || s.length()<1) return "";
-			int start = 0, end = 0;
-			for(int i=0; i<s.length(); i++){
-				int len1 = expendAroundCenter(s, i, i);
-				int len2 = expendAroundCenter(s, i, i+1);
-				int len = Math.max(len1, len2);
-				if(len > end - start + 1){
-					start = i - (len-1)/2;
-					end = i + len/2;
-				}
+		public static List<String> letterCombinations(String digits) {
+			// If the input is empty, immediately return an empty answer array
+			if (digits.length() == 0) {
+				return combinations;
 			}
-			return s.substring(start, end+1);
+
+			// Initiate backtracking with an empty path and starting index of 0
+			phoneDigits = digits;
+			backtrack(0, new StringBuilder());
+			return combinations;
 		}
 
-		private int expendAroundCenter(String s,
-										int leftIndex,
-										int rightIndex){
-			while (leftIndex >=0 && rightIndex < s.length() && s.charAt(leftIndex)==s.charAt(rightIndex)){
-				leftIndex--;
-				rightIndex++;
+		private static void backtrack(int index,
+								StringBuilder path) {
+			// If the path is the same length as digits, we have a complete combination
+			if (path.length() == phoneDigits.length()) {
+				combinations.add(path.toString());
+				return; // Backtrack
 			}
-			return rightIndex - leftIndex - 1;
+
+			// Get the letters that the current digit maps to, and loop through them
+			String possibleLetters = letters.get(phoneDigits.charAt(index));
+			for (char letter: possibleLetters.toCharArray()) {
+				// Add the letter to our current path
+				path.append(letter);
+				// Move on to the next digit
+				backtrack(index + 1, path);
+				// Backtrack by removing the letter before moving onto the next
+				path.deleteCharAt(path.length() - 1);
+			}
+		}
+	}
+	static class LongestPalindromicSubstring{
+		public static String longestPalindrome(String s) {
+			if (s == null || s.length() < 1) return "";
+			int start = 0, end = 0;
+			for (int i = 0; i < s.length(); i++) {
+				int len1 = expandAroundCenter(s, i, i);
+				int len2 = expandAroundCenter(s, i, i + 1);
+				int len = Math.max(len1, len2);
+				if (len > end - start) {
+					start = i - (len - 1) / 2;
+					end = i + len / 2;
+				}
+			}
+			return s.substring(start, end + 1);
+		}
+
+		private static int expandAroundCenter(String s,
+										int left, int right) {
+			int L = left, R = right;
+			while (L >= 0 && R < s.length() && s.charAt(L) == s.charAt(R)) {
+				L--;
+				R++;
+			}
+			return R - L - 1;
 		}
 	}
 
@@ -240,5 +229,121 @@ public class StringProblems {
 			else if(sign == 0) return resInteger;
 			else return resInteger*sign;
 		}
+	}
+
+	static class LongestSubstringWithoutRepeatingCharacters{
+		public static int slidingWindow(String s) {
+			int[] chars = new int[128];
+
+			int left = 0;
+			int right = 0;
+
+			int res = 0;
+			while (right < s.length()) {
+				char r = s.charAt(right);
+				chars[r]++;
+
+				while (chars[r] > 1) {
+					char l = s.charAt(left);
+					chars[l]--;
+					left++;
+				}
+
+				res = Math.max(res, right - left + 1);
+
+				right++;
+			}
+			return res;
+		}
+		public static int hashMapSlidingWindow(String s) {
+			int n = s.length(), ans = 0;
+			Map<Character, Integer> map = new HashMap<>(); // current index of character
+			// try to extend the range [i, j]
+			for (int j = 0, i = 0; j < n; j++) {
+				if (map.containsKey(s.charAt(j))) {
+					i = Math.max(map.get(s.charAt(j)), i);
+				}
+				ans = Math.max(ans, j - i + 1);
+				map.put(s.charAt(j), j + 1);
+			}
+			return ans;
+		}
+		public static int slidingWindowOptimized(String s) {
+			Integer[] chars = new Integer[128];
+
+			int left = 0;
+			int right = 0;
+
+			int res = 0;
+			while (right < s.length()) {
+				char r = s.charAt(right);
+
+				Integer index = chars[r];
+				if (index != null && index >= left && index < right) {
+					left = index + 1;
+				}
+
+				res = Math.max(res, right - left + 1);
+
+				chars[r] = right;
+				right++;
+			}
+
+			return res;
+		}
+	}
+
+	static class ValidParentheses{
+		// Hash table that takes care of the mappings.
+		private HashMap<Character, Character> mappings;
+
+		// Initialize hash map with mappings. This simply makes the code easier to read.
+		public void Solution() {
+			this.mappings = new HashMap<Character, Character>();
+			this.mappings.put(')', '(');
+			this.mappings.put('}', '{');
+			this.mappings.put(']', '[');
+		}
+
+		public boolean isValid(String s) {
+
+			// Initialize a stack to be used in the algorithm.
+			Stack<Character> stack = new Stack<Character>();
+
+			for (int i = 0; i < s.length(); i++) {
+				char c = s.charAt(i);
+
+				// If the current character is a closing bracket.
+				if (this.mappings.containsKey(c)) {
+
+					// Get the top element of the stack. If the stack is empty, set a dummy value of '#'
+					char topElement = stack.empty() ? '#' : stack.pop();
+
+					// If the mapping for this bracket doesn't match the stack's top element, return false.
+					if (topElement != this.mappings.get(c)) {
+						return false;
+					}
+				} else {
+					// If it was an opening bracket, push to the stack.
+					stack.push(c);
+				}
+			}
+
+			// If the stack still contains elements, then it is an invalid expression.
+			return stack.isEmpty();
+		}
+	}
+
+	public static void main(String[] args){
+		// test Letter Combinations of a Phone Number
+		String input = "23";
+		List<String> output =
+				LetterCombinationsofPhoneNumber.letterCombinations(input);
+		System.out.print(output);
+
+//		// test LengthOfLongestSubstring
+//		String input = "abcabcbb"; //output 3
+//		int output =
+//				LongestSubstringWithoutRepeatingCharacters.slidingWindowOptimized(input);
 	}
 }

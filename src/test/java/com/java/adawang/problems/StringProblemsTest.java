@@ -4,6 +4,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.java.adawang.problems.StringProblems;
 
+import java.util.List;
+
 public class StringProblemsTest {
 	class LongestPalindromeTestData{
 		String input;
@@ -16,7 +18,7 @@ public class StringProblemsTest {
 				new LongestPalindromeTestData();
 		testData0.input = "babad";
 		testData0.output = "bab";
-		StringProblems.LongestPalindrome longestPalindrome = new StringProblems.LongestPalindrome();
+		StringProblems.LongestPalindromicSubstring longestPalindrome = new StringProblems.LongestPalindromicSubstring();
 		Assert.assertEquals(longestPalindrome.longestPalindrome(testData0.input), testData0.output);
 	}
 
@@ -96,5 +98,14 @@ public class StringProblemsTest {
 		StringProblems.StringToInteger stringToInteger =
 				new StringProblems.StringToInteger();
 		Assert.assertEquals(stringToInteger.myAtoi(testData12.input), testData12.output);
+	}
+
+	@Test
+	void testLetterCombinationsofPhoneNumber(){
+		// test Letter Combinations of a Phone Number
+		String input = "23";
+		List<String> output =
+				StringProblems.LetterCombinationsofPhoneNumber.letterCombinations(input);
+		System.out.print(output);
 	}
 }

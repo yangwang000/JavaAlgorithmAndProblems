@@ -1,5 +1,7 @@
 package com.java.adawang.datastructure;
 
+
+
 public class Main {
 	interface One{
 		default void method(){
@@ -23,7 +25,16 @@ public class Main {
 		throw new Error();
 	}
 
+	static Exception print(int i){
+		if (i>0) {
+			return new Exception();
+		} else {
+			throw new RuntimeException();
+		}
+	}
+
 	public static void main(String[] args){
+		System.out.println(print(2));
 //		try {
 //			System.out.println("A");
 //			badMethod();

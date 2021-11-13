@@ -230,16 +230,62 @@ public class ArraysProblem {
 		}
 	}
 
+	static class RemoveDuplicatesFromSortedArray{
+		public static int removeDuplicates(int[] nums) {
+			int resLength = nums.length;
+			int index = 0;
+			while (index < resLength-1){
+				if(nums[index] == nums[index+1]){
+					int tempIndex = index + 1;
+					while (tempIndex+1 < resLength){
+						nums[tempIndex] = nums[tempIndex+1];
+						tempIndex++;
+					}
+					resLength--;
+				}else {
+					index++;
+				}
+			}
+			System.out.println(Arrays.toString(nums));
+			return resLength;
+		}
+
+		public static int removeElement(int[] nums, int val) {
+			int i = 0;
+			for(int n: nums){
+				if(n != val){
+					nums[i++] = n;
+				}
+			}
+			System.out.println(Arrays.toString(nums));
+			return i;
+		}
+	}
+
 	public static void main(String[] args){
-		// test fourSum
-		int[] input = new int[]{1,0,-1,0,-2,2};
-		//target = 0
-		//[[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]
-//		input = new int[] {2,2,2,2,2};
-		//target = 8
-		//Output: [[2,2,2,2]]
-		List<List<Integer>> res = XSum.fourSum(input, 0);
+		//test removeElement
+		int[] input = new int[] {3,2,2,3};// val=3
+		input = new int[]{0,1,2,2,3,0,4,2};//val=2
+		int res =
+				RemoveDuplicatesFromSortedArray.removeElement(input, 2);
 		System.out.println(res);
+
+//		//test removeDuplicates
+//		int[] input = new int[]{1,1,2};//2
+////		input = new int[]{0,0,1,1,1,2,2,3,3,4};//5
+//		int res =
+//				RemoveDuplicatesFromSortedArray.removeDuplicates(input);
+//		System.out.println(res);
+
+//		// test fourSum
+//		int[] input = new int[]{1,0,-1,0,-2,2};
+//		//target = 0
+//		//[[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]
+////		input = new int[] {2,2,2,2,2};
+//		//target = 8
+//		//Output: [[2,2,2,2]]
+//		List<List<Integer>> res = XSum.fourSum(input, 0);
+//		System.out.println(res);
 
 //		//test fourSum
 //		int[] input = new int[] {1,0,-1,0,-2,2};
