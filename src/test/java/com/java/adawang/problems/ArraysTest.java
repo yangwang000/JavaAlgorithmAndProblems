@@ -60,4 +60,11 @@ public class ArraysTest {
 				new StringProblems.ZigZagConversion();
 		Assert.assertEquals(zigZagConversion.convert2(testData0.input, testData0.numRows), testData0.output);
 	}
+
+	@Test
+	void testMaximumPopulationYear(){
+		int[][] input = new int[][]{{1950,1961},{1960,
+				1971},{1970,1981}};
+		System.out.println(ArraysProblem.MaximumPopulationYear.maximumPopulation(input));
+	}
 }

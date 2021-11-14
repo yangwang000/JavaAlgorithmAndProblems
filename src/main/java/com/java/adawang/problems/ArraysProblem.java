@@ -262,6 +262,21 @@ public class ArraysProblem {
 		}
 	}
 
+	static class MaximumPopulationYear{
+		public static int maximumPopulation(int[][] logs) {
+			int pop[] = new int[101], res = 0;
+			for (var l : logs) {
+				++pop[l[0]-1950];
+				--pop[l[1]-1950];
+			}
+			for (int i = 1; i < 101; ++i) {
+				pop[i] += pop[i - 1];
+				res = pop[i] > pop[res] ? i : res;
+			}
+			return res+1950;
+		}
+	}
+
 	public static void main(String[] args){
 		//test removeElement
 		int[] input = new int[] {3,2,2,3};// val=3
