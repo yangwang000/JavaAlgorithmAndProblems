@@ -423,13 +423,73 @@ public class ArrayProblems {
 		}
 	}
 
+	static class CountClockDigits{
+
+		public static int[] countClockDigits(int[] startTime, int[] endTime){
+			int[] res = new int[60];
+			int[] startCount = countFromZero(startTime);
+			int[] endCount = countFromZero(endTime);
+			for(int i = 0; i < 60; i++){
+				res[i] = endCount[i] - startCount[i];
+			}
+			res[startTime[0]] += 1;
+			res[startTime[1]] += 1;
+			res[startTime[2]] += 1;
+			return res;
+		}
+
+		public static int[] countFromZero(int[] input){
+			int[] h = new int[60];
+			int[] m = new int[60];
+			int[] s = new int[60];
+
+			for(int i = 0; i < input[0] ; i++){
+				h[i] = 360;
+				for(int j = 0; j < 60; j++){
+					m[j] += 60;
+					s[j] += 60;
+				}
+			}
+
+			for(int i = 0; i < input[1] ; i++){
+				h[input[0]] += 60;
+				m[i] += 60;
+				for(int j = 0; j < 60; j++){
+					s[j] += 1;
+				}
+			}
+
+			for(int i = 0; i <= input[2]; i++){
+				h[input[0]] += 1;
+				m[input[1]] += 1;
+				s[i] += 1;
+			}
+
+			int[] res = new int[60];
+			for(int i = 0; i < 60; i++){
+				res[i] = h[i] + m[i] + s[i];
+			}
+			return res;
+		}
+	}
+
 	public static void main(String[] args){
-		//test removeElement
-		int[] input = new int[] {3,2,2,3};// val=3
-		input = new int[]{0,1,2,2,3,0,4,2};//val=2
-		int res =
-				RemoveDuplicatesFromSortedArray.removeElement(input, 2);
-		System.out.println(res);
+		// test count clock digits
+		int[] startInput = new int[]{0,0,1};
+		int[] startOutput =
+				CountClockDigits.countFromZero(startInput);
+		System.out.println(Arrays.toString(startOutput));
+		int[] endInput = new int[]{0,0,5};
+		int[] endOutput = CountClockDigits.countFromZero(endInput);
+		System.out.println(Arrays.toString(endOutput));
+		System.out.println(Arrays.toString(CountClockDigits.countClockDigits(startInput, endInput)));
+
+//		//test removeElement
+//		int[] input = new int[] {3,2,2,3};// val=3
+//		input = new int[]{0,1,2,2,3,0,4,2};//val=2
+//		int res =
+//				RemoveDuplicatesFromSortedArray.removeElement(input, 2);
+//		System.out.println(res);
 
 //		//test removeDuplicates
 //		int[] input = new int[]{1,1,2};//2
