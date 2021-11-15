@@ -108,4 +108,17 @@ public class StringProblemsTest {
 				StringProblems.LetterCombinationsofPhoneNumber.letterCombinations(input);
 		System.out.print(output);
 	}
+
+	@Test
+	void testFileCreation(){
+		String[] input = new String[]{"doc","doc","image"
+				,"doc(1)","doc","doc(1)(1)","doc","doc",
+				"doc(1)(1)"};
+		StringProblems.FileCreation fc =
+				new StringProblems.FileCreation();
+		String[] res = fc.creatFiles(input);
+		for(int i=0; i < res.length; i++){
+			System.out.print(res[i] + " ");
+		}
+	}
 }

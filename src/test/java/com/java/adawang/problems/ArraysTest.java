@@ -16,8 +16,8 @@ public class ArraysTest {
 		testData0.nums1 = new int[] {1,3};
 		testData0.nums2 = new int[] {2};
 		testData0.output = 2.0;
-		ArraysProblem.MedianOfTwoSortedArrays testClass =
-				new ArraysProblem.MedianOfTwoSortedArrays();
+		ArrayProblems.MedianOfTwoSortedArrays testClass =
+				new ArrayProblems.MedianOfTwoSortedArrays();
 		Assert.assertEquals(testClass.findMedianSortedArrays(testData0.nums1, testData0.nums2), testData0.output);
 
 		FindMedianSortedArraysTestData testData1 =
@@ -65,6 +65,33 @@ public class ArraysTest {
 	void testMaximumPopulationYear(){
 		int[][] input = new int[][]{{1950,1961},{1960,
 				1971},{1970,1981}};
-		System.out.println(ArraysProblem.MaximumPopulationYear.maximumPopulation(input));
+		System.out.println(ArrayProblems.MaximumPopulationYear.maximumPopulation(input));
+	}
+
+	@Test
+	void testMissingElementInSortedArray(){
+		int[] inputArr = new int[]{4,7,9,10};
+		int k = 1;
+		k = 3;
+		ArrayProblems.MissingElementInSortedArray missingEle = new ArrayProblems.MissingElementInSortedArray();
+		System.out.println(missingEle.missingElementBinarySearch(inputArr,k));
+	}
+
+	@Test
+	void testVerifyingAnAlienDictionary(){
+		String[] words = new String[]{"word", "world",
+				"row"};
+		String order = "worldabcefghijkmnpqstuvxyz";
+		ArrayProblems.VerifyingAnAlienDictionary vad =
+				new ArrayProblems.VerifyingAnAlienDictionary();
+		System.out.println(vad.isAlienSorted(words, order));
+	}
+
+	@Test
+	void testStockPrice(){
+		int[] prices = new int[]{100,113,110,85,105,102,86,63,81,101,94,106,101,79,94,90,97};
+		ArrayProblems.StockPrice stockPrice =
+				new ArrayProblems.StockPrice();
+		System.out.println(stockPrice.onePass(prices));
 	}
 }

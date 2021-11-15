@@ -3,7 +3,7 @@ package com.java.adawang.problems;
 import java.util.*;
 import java.util.LinkedList;
 
-public class ArraysProblem {
+public class ArrayProblems {
 	static class MedianOfTwoSortedArrays{
 		/*
 		* Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.
@@ -274,6 +274,152 @@ public class ArraysProblem {
 				res = pop[i] > pop[res] ? i : res;
 			}
 			return res+1950;
+		}
+	}
+
+	static class MissingElementInSortedArray{
+		public int missingElement(int[] nums, int k) {
+			int diff = 0;
+			for(int i = 1; i < nums.length; i++){
+				diff = nums[i] - nums[i-1] - 1;
+				if(diff < k){
+					k -= diff;
+				}else {
+					return nums[i-1] + k;
+				}
+			}
+			return nums[nums.length-1] + k;
+		}
+
+		// Return how many numbers are missing until nums[idx]
+		int missing(int idx, int[] nums) {
+			int res = nums[idx] - nums[0] - idx;
+			return res;
+		}
+		public int missingElementBinarySearch(int[] nums,
+										 int k) {
+			int n = nums.length;
+			// If kth missing number is larger than
+			// the last element of the array
+			if (k > missing(n - 1, nums))
+				return nums[n - 1] + k - missing(n - 1, nums);
+
+			int left = 0, right = n - 1, pivot;
+			// find left = right index such that
+			// missing(left - 1) < k <= missing(left)
+			while (left != right) {
+				pivot = left + (right - left) / 2;
+
+				if (missing(pivot, nums) < k) left = pivot + 1;
+				else right = pivot;
+			}
+
+			// kth missing number is greater than nums[idx - 1]
+			// and less than nums[idx]
+			return nums[left - 1] + k - missing(left - 1, nums);
+		}
+	}
+
+	static class VerifyingAnAlienDictionary{
+		public boolean isAlienSorted(String[] words,
+									 String order) {
+			int[] orderMap = new int[26];
+			for (int i = 0; i < order.length(); i++){
+				orderMap[order.charAt(i) - 'a'] = i;
+			}
+
+			for (int i = 0; i < words.length - 1; i++) {
+
+				for (int j = 0; j < words[i].length(); j++) {
+					// If we do not find a mismatch letter between words[i] and words[i + 1],
+					// we need to examine the case when words are like ("apple", "app").
+					if (j >= words[i + 1].length()) return false;
+
+					if (words[i].charAt(j) != words[i + 1].charAt(j)) {
+						int currentWordChar = words[i].charAt(j) - 'a';
+						int nextWordChar = words[i + 1].charAt(j) - 'a';
+						if (orderMap[currentWordChar] > orderMap[nextWordChar]) return false;
+							// if we find the first different letter and they are sorted,
+							// then there's no need to check remaining letters
+						else break;
+					}
+				}
+			}
+
+			return true;
+		}
+	}
+
+	static class StockPrice{
+		public int onePass(int[] prices){
+			int buyPrice = prices[0];
+			int maxProf = 0;
+			for(int i = 0; i< prices.length; i++){
+				if(prices[i] < buyPrice){
+					buyPrice = prices[i];
+				}else if(prices[i] - buyPrice > maxProf){
+					maxProf = prices[i] - buyPrice;
+				}
+			}
+			return maxProf;
+		}
+		public static int[] findMaximumSubarray(int[] A, int low
+				, int high){
+			if(low == high){
+				return new int[]{low, high, A[low]};
+			}else {
+				int mid = (low + high)/2;
+				int[] left = findMaximumSubarray(A,
+						low, mid);
+				int[] right = findMaximumSubarray(A,
+						mid+1, high);
+				int[] cross = findMaxCrossingSubarray(A,
+						low, mid, high);
+				if(left[2] > right[2] && left[2] > cross[2])
+					return left;
+				else if (right[2] > left[2] && right[2] > cross[2])
+					return right;
+				else return cross;
+			}
+		}
+		private static int[] findMaxCrossingSubarray(int[] A,
+													 int low,
+													 int mid,
+													 int high){
+			int leftSum = Integer.MIN_VALUE;
+			int sum = 0;
+			int maxLeft = mid;
+			for(int i = mid; i >= low; i--){
+				sum += A[i];
+				if(sum > leftSum){
+					leftSum = sum;
+					maxLeft = i;
+				}
+			}
+			int rightSum = Integer.MIN_VALUE;
+			sum = 0;
+			int maxRight = mid + 1;
+			for(int j = mid + 1; j <= high; j++){
+				sum += A[j];
+				if(sum > rightSum){
+					rightSum = sum;
+					maxRight = j;
+				}
+			}
+			return new int[]{maxLeft, maxRight, leftSum+rightSum};
+		}
+	}
+
+	static class MaximumSubarray{
+		public int maxSubArrayKadane(int[] nums) {
+			int currsum = nums[0];
+			int maxsum = nums[0];
+			for(int i = 1; i < nums.length; i++){
+				int num = nums[i];
+				currsum = Math.max(num, currsum+num);
+				maxsum = Math.max(currsum, maxsum);
+			}
+			return maxsum;
 		}
 	}
 

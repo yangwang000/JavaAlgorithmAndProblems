@@ -334,12 +334,95 @@ public class StringProblems {
 		}
 	}
 
+	static class FileCreation{
+		public String[] creatFiles(String[] input){
+			List<String> res = new ArrayList<>();
+			for(int i = 0; i < input.length; i++){
+				String inputFile = input[i];
+				if(res.contains(inputFile)){
+					String tempFile = inputFile+"(1)";
+					int index = 1;
+					while(res.contains(tempFile)){
+						index++;
+						tempFile = inputFile+"("+index+")";
+					}
+					res.add(tempFile);
+				}else {
+					res.add(inputFile);
+				}
+			}
+			String[] resArray = new String[res.size()];
+			res.toArray(resArray);
+			return resArray;
+		}
+	}
+
+	static class CountClockDigits{
+
+		public static int[] countClockDigits(int[] startTime, int[] endTime){
+			int[] res = new int[60];
+			int[] startCount = countFromZero(startTime);
+			int[] endCount = countFromZero(endTime);
+			for(int i = 0; i < 60; i++){
+				res[i] = endCount[i] - startCount[i];
+			}
+			res[startTime[0]] += 1;
+			res[startTime[1]] += 1;
+			res[startTime[2]] += 1;
+			return res;
+		}
+
+		public static int[] countFromZero(int[] input){
+			int[] h = new int[60];
+			int[] m = new int[60];
+			int[] s = new int[60];
+
+			for(int i = 0; i < input[0] ; i++){
+				h[i] = 360;
+				for(int j = 0; j < 60; j++){
+					m[j] += 60;
+					s[j] += 60;
+				}
+			}
+
+			for(int i = 0; i < input[1] ; i++){
+				h[input[0]] += 60;
+				m[i] += 60;
+				for(int j = 0; j < 60; j++){
+					s[j] += 1;
+				}
+			}
+
+			for(int i = 0; i <= input[2]; i++){
+				h[input[0]] += 1;
+				m[input[1]] += 1;
+				s[i] += 1;
+			}
+
+			int[] res = new int[60];
+			for(int i = 0; i < 60; i++){
+				res[i] = h[i] + m[i] + s[i];
+			}
+			return res;
+		}
+	}
+
 	public static void main(String[] args){
-		// test Letter Combinations of a Phone Number
-		String input = "23";
-		List<String> output =
-				LetterCombinationsofPhoneNumber.letterCombinations(input);
-		System.out.print(output);
+		int[] startInput = new int[]{0,0,1};
+		int[] startOutput =
+				CountClockDigits.countFromZero(startInput);
+		System.out.println(Arrays.toString(startOutput));
+		int[] endInput = new int[]{0,0,5};
+		int[] endOutput = CountClockDigits.countFromZero(endInput);
+		System.out.println(Arrays.toString(endOutput));
+		System.out.println(Arrays.toString(CountClockDigits.countClockDigits(startInput, endInput)));
+
+
+//		// test Letter Combinations of a Phone Number
+//		String input = "23";
+//		List<String> output =
+//				LetterCombinationsofPhoneNumber.letterCombinations(input);
+//		System.out.print(output);
 
 //		// test LengthOfLongestSubstring
 //		String input = "abcabcbb"; //output 3
