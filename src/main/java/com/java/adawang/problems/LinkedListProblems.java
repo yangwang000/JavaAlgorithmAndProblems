@@ -35,31 +35,30 @@ public class LinkedListProblems {
 		}
 	}
 
-	static class LRUCache extends LinkedHashMap<Integer,
-		Integer> {
-		private int capacity;
+//	static class LRUCache extends LinkedHashMap<Integer,
+//		Integer> {
+//		private int capacity;
+//
+//		public LRUCache(int capacity) {
+//			super(capacity, 0.75F, true);
+//			this.capacity = capacity;
+//		}
+//
+//		public int get(int key) {
+//			return super.getOrDefault(key, -1);
+//		}
+//
+//		public void put(int key, int value) {
+//			super.put(key, value);
+//		}
+//
+//		@Override
+//		protected boolean removeEldestEntry(Map.Entry<Integer, Integer> eldest) {
+//			return size() > capacity;
+//		}
+//	}
 
-		public LRUCache(int capacity) {
-			super(capacity, 0.75F, true);
-			this.capacity = capacity;
-		}
-
-		public int get(int key) {
-			return super.getOrDefault(key, -1);
-		}
-
-		public void put(int key, int value) {
-			super.put(key, value);
-		}
-
-		@Override
-		protected boolean removeEldestEntry(Map.Entry<Integer, Integer> eldest) {
-			return size() > capacity;
-		}
-	}
-
-	static class LRUCache2 {
-
+	static class LRUCache {
 		class DLinkedNode {
 			int key;
 			int value;
@@ -111,7 +110,7 @@ public class LinkedListProblems {
 		private int capacity;
 		private DLinkedNode head, tail;
 
-		public void LRUCache(int capacity) {
+		public LRUCache(int capacity) {
 			this.size = 0;
 			this.capacity = capacity;
 
