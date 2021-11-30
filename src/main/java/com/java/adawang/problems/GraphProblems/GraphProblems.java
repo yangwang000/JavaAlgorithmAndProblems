@@ -1,4 +1,4 @@
-package com.java.adawang.problems;
+package com.java.adawang.problems.GraphProblems;
 
 import java.util.*;
 

@@ -1,5 +1,6 @@
 package com.java.adawang.problems;
 
+import com.java.adawang.problems.ArrayProblems.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -61,37 +62,37 @@ public class ArraysTest {
 		Assert.assertEquals(zigZagConversion.convert2(testData0.input, testData0.numRows), testData0.output);
 	}
 
-	@Test
-	void testMaximumPopulationYear(){
-		int[][] input = new int[][]{{1950,1961},{1960,
-				1971},{1970,1981}};
-		System.out.println(ArrayProblems.MaximumPopulationYear.maximumPopulation(input));
-	}
-
-	@Test
-	void testMissingElementInSortedArray(){
-		int[] inputArr = new int[]{4,7,9,10};
-		int k = 1;
-		k = 3;
-		ArrayProblems.MissingElementInSortedArray missingEle = new ArrayProblems.MissingElementInSortedArray();
-		System.out.println(missingEle.missingElementBinarySearch(inputArr,k));
-	}
-
-	@Test
-	void testVerifyingAnAlienDictionary(){
-		String[] words = new String[]{"word", "world",
-				"row"};
-		String order = "worldabcefghijkmnpqstuvxyz";
-		ArrayProblems.VerifyingAnAlienDictionary vad =
-				new ArrayProblems.VerifyingAnAlienDictionary();
-		System.out.println(vad.isAlienSorted(words, order));
-	}
-
-	@Test
-	void testStockPrice(){
-		int[] prices = new int[]{100,113,110,85,105,102,86,63,81,101,94,106,101,79,94,90,97};
-		ArrayProblems.StockPrice stockPrice =
-				new ArrayProblems.StockPrice();
-		System.out.println(stockPrice.onePass(prices));
-	}
+//	@Test
+//	void testMaximumPopulationYear(){
+//		int[][] input = new int[][]{{1950,1961},{1960,
+//				1971},{1970,1981}};
+//		System.out.println(ArrayProblems.MaximumPopulationYear.maximumPopulation(input));
+//	}
+//
+//	@Test
+//	void testMissingElementInSortedArray(){
+//		int[] inputArr = new int[]{4,7,9,10};
+//		int k = 1;
+//		k = 3;
+//		ArrayProblems.MissingElementInSortedArray missingEle = new ArrayProblems.MissingElementInSortedArray();
+//		System.out.println(missingEle.missingElementBinarySearch(inputArr,k));
+//	}
+//
+//	@Test
+//	void testVerifyingAnAlienDictionary(){
+//		String[] words = new String[]{"word", "world",
+//				"row"};
+//		String order = "worldabcefghijkmnpqstuvxyz";
+//		ArrayProblems.VerifyingAnAlienDictionary vad =
+//				new ArrayProblems.VerifyingAnAlienDictionary();
+//		System.out.println(vad.isAlienSorted(words, order));
+//	}
+//
+//	@Test
+//	void testStockPrice(){
+//		int[] prices = new int[]{100,113,110,85,105,102,86,63,81,101,94,106,101,79,94,90,97};
+//		ArrayProblems.StockPrice stockPrice =
+//				new ArrayProblems.StockPrice();
+//		System.out.println(stockPrice.onePass(prices));
+//	}
 }

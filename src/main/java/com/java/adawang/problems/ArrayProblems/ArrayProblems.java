@@ -1,10 +1,10 @@
-package com.java.adawang.problems;
+package com.java.adawang.problems.ArrayProblems;
 
 import java.util.*;
 import java.util.LinkedList;
 
 public class ArrayProblems {
-	static class MedianOfTwoSortedArrays{
+	public static class MedianOfTwoSortedArrays{
 		/*
 		* Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.
 		* The overall run time complexity should be O(log (m+n)).
@@ -97,139 +97,6 @@ public class ArrayProblems {
 		}
 	}
 
-	static class XSum{
-		public static List<List<Integer>> twoSumTwoPointers(int[] nums, int target, int start){
-			List<List<Integer>> res = new ArrayList<>();
-			Arrays.sort(nums);
-			int lowPointer = start, highPointer =
-					nums.length - 1;
-			while (lowPointer < highPointer){
-				int sum =
-						nums[lowPointer] + nums[highPointer];
-				if(sum < target || (lowPointer > start && nums[lowPointer] == nums[lowPointer-1])) {
-					lowPointer++;
-				}else if(sum > target || (highPointer < nums.length-1 && nums[highPointer] == nums[highPointer+1])){
-					highPointer--;
-				}else {
-					res.add(Arrays.asList(nums[lowPointer++], nums[highPointer--]));
-				}
-			}
-			return res;
-		}
-
-		public static List<List<Integer>> twoSumHashSet(int[] nums, int target, int start){
-			List<List<Integer>> res = new ArrayList<>();
-			Set<Integer> s = new HashSet<>();
-			for(int i = 0; i < nums.length; i++){
-				if(res.isEmpty() || res.get(res.size()-1).get(1) != nums[i]){
-					if(s.contains(target-nums[i])){
-						res.add(Arrays.asList(target-nums[i], nums[i]));
-					}
-
-				}
-				s.add(nums[i]);
-			}
-			return res;
-		}
-		public static List<List<Integer>> threeSum(int[] nums) {
-			List<List<Integer>> result = new ArrayList<>();
-			Arrays.sort(nums);
-			for(int i = 0; i < nums.length - 2; i++){
-				if(i==0 || nums[i] != nums[i-1]){
-					int head = i + 1, tail = nums.length -1,
-							sum = 0 - nums[i];
-					while(head < tail){
-						if(nums[head] + nums[tail] == sum){
-							result.add(Arrays.asList(nums[i],
-									nums[head], nums[tail]));
-							while(head < tail && nums[head] == nums[head+1]) head++;
-							while(head < tail && nums[tail] == nums[tail-1]) tail--;
-							head++;
-							tail--;
-						}else if(nums[head] + nums[tail] > sum){
-							tail--;
-						}else {
-							head++;
-						}
-					}
-				}
-			}
-			return result;
-		}
-
-		public static int threeSumClosest(int[] nums,
-									int target) {
-			if(nums.length < 3)
-				throw new IllegalArgumentException(
-						"illegal input");
-			int res =
-					nums[0] + nums[1] + nums[nums.length-1];
-			Arrays.sort(nums);
-			for(int i = 0; i < nums.length - 2; i++){
-				int head = i + 1;
-				int tail = nums.length - 1;
-				while (head < tail){
-					int sum =
-							nums[i] + nums[head] + nums[tail];
-					if(sum == target){
-						return sum;
-					}else if(sum > target){
-						tail--;
-					}else {
-						head++;
-					}
-					int a = (target > res) ?
-							target - res : res - target;
-					long b = (target > sum) ?
-							target - sum : sum - target;
-					if( b < a ){
-						res = sum;
-					}
-				}
-			}
-			return res;
-		}
-
-		public static List<List<Integer>> fourSum(int[] nums,
-											int target) {
-			Arrays.sort(nums);
-			return kSum(nums, target, 0, 4);
-		}
-
-		public static List<List<Integer>> kSum(int[] nums
-				, int target, int start, int k){
-			List<List<Integer>> res = new ArrayList<>();
-			//If we have run out of numbers to add,
-			// return res
-			if(start == nums.length){
-				return res;
-			}
-			// There are k remaining values to add to the sum. The
-			// average of these values is at least target / k.
-			int average_value = target / k;
-			// We cannot obtain a sum of target if the smallest value
-			// in nums is greater than target / k or if the largest
-			// value in nums is smaller than target / k.
-			if  (nums[start] > average_value || average_value > nums[nums.length - 1]) {
-				return res;
-			}
-			if(k == 2){
-				return twoSumTwoPointers(nums, target,
-						start);
-			}
-			for(int i = start; i < nums.length; i++){
-				if(i==start || nums[i-1] != nums[i]){
-					for(List<Integer> subset : kSum(nums
-							, target - nums[i], i+1, k-1)){
-						res.add(new ArrayList<>(Arrays.asList(nums[i])));
-						res.get(res.size()-1).addAll(subset);
-					}
-				}
-			}
-			return res;
-		}
-	}
-
 	static class RemoveDuplicatesFromSortedArray{
 		public static int removeDuplicates(int[] nums) {
 			int resLength = nums.length;
@@ -259,21 +126,6 @@ public class ArrayProblems {
 			}
 			System.out.println(Arrays.toString(nums));
 			return i;
-		}
-	}
-
-	static class MaximumPopulationYear{
-		public static int maximumPopulation(int[][] logs) {
-			int pop[] = new int[101], res = 0;
-			for (var l : logs) {
-				++pop[l[0]-1950];
-				--pop[l[1]-1950];
-			}
-			for (int i = 1; i < 101; ++i) {
-				pop[i] += pop[i - 1];
-				res = pop[i] > pop[res] ? i : res;
-			}
-			return res+1950;
 		}
 	}
 
@@ -320,7 +172,7 @@ public class ArrayProblems {
 		}
 	}
 
-	static class VerifyingAnAlienDictionary{
+	public static class VerifyingAnAlienDictionary{
 		public boolean isAlienSorted(String[] words,
 									 String order) {
 			int[] orderMap = new int[26];
@@ -347,79 +199,6 @@ public class ArrayProblems {
 			}
 
 			return true;
-		}
-	}
-
-	static class StockPrice{
-		public int onePass(int[] prices){
-			int buyPrice = prices[0];
-			int maxProf = 0;
-			for(int i = 0; i< prices.length; i++){
-				if(prices[i] < buyPrice){
-					buyPrice = prices[i];
-				}else if(prices[i] - buyPrice > maxProf){
-					maxProf = prices[i] - buyPrice;
-				}
-			}
-			return maxProf;
-		}
-		public static int[] findMaximumSubarray(int[] A, int low
-				, int high){
-			if(low == high){
-				return new int[]{low, high, A[low]};
-			}else {
-				int mid = (low + high)/2;
-				int[] left = findMaximumSubarray(A,
-						low, mid);
-				int[] right = findMaximumSubarray(A,
-						mid+1, high);
-				int[] cross = findMaxCrossingSubarray(A,
-						low, mid, high);
-				if(left[2] > right[2] && left[2] > cross[2])
-					return left;
-				else if (right[2] > left[2] && right[2] > cross[2])
-					return right;
-				else return cross;
-			}
-		}
-		private static int[] findMaxCrossingSubarray(int[] A,
-													 int low,
-													 int mid,
-													 int high){
-			int leftSum = Integer.MIN_VALUE;
-			int sum = 0;
-			int maxLeft = mid;
-			for(int i = mid; i >= low; i--){
-				sum += A[i];
-				if(sum > leftSum){
-					leftSum = sum;
-					maxLeft = i;
-				}
-			}
-			int rightSum = Integer.MIN_VALUE;
-			sum = 0;
-			int maxRight = mid + 1;
-			for(int j = mid + 1; j <= high; j++){
-				sum += A[j];
-				if(sum > rightSum){
-					rightSum = sum;
-					maxRight = j;
-				}
-			}
-			return new int[]{maxLeft, maxRight, leftSum+rightSum};
-		}
-	}
-
-	static class MaximumSubarray{
-		public int maxSubArrayKadane(int[] nums) {
-			int currsum = nums[0];
-			int maxsum = nums[0];
-			for(int i = 1; i < nums.length; i++){
-				int num = nums[i];
-				currsum = Math.max(num, currsum+num);
-				maxsum = Math.max(currsum, maxsum);
-			}
-			return maxsum;
 		}
 	}
 
