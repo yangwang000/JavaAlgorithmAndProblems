@@ -6,8 +6,13 @@ I just started reading the book [Problem-Solving Through Problems](https://math.
 
 
 
-# JAVA
-
+# CORE JAVA
 ## Collections Framework
-
 https://docs.oracle.com/javase/8/docs/technotes/guides/collections/overview.html
+
+## JVM
+JVM Architecture Explained for Beginners: https://www.freecodecamp.org/news/jvm-tutorial-java-virtual-machine-architecture-explained-for-beginners/
+
+## Concurrency
+http://tutorials.jenkov.com/java-concurrency/index.html
+

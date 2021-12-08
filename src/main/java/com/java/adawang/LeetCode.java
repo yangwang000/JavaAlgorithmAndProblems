@@ -3,6 +3,9 @@ package com.java.adawang;
 import com.java.adawang.problems.GraphProblems.UnionFind;
 
 import java.util.*;
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.CyclicBarrier;
 
 public class LeetCode {
 	// "2-3*4"
@@ -62,7 +65,66 @@ public class LeetCode {
 		return start;
 	}
 
-	public static void main(String[] args) {
-		System.out.println(countNumbers(new int[] { 1, 3, 5, 7 }, 4));
+	public static class MyRunnable implements Runnable {
+
+		private boolean doStop = false;
+
+		public synchronized void doStop() {
+			this.doStop = true;
+		}
+
+		private synchronized boolean keepRunning() {
+			return this.doStop == false;
+		}
+
+		@Override
+		public void run() {
+			while(keepRunning()) {
+				// keep doing what this thread should do.
+				System.out.println("Running");
+
+				try {
+					Thread.sleep(1L * 1000L);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+
+			}
+		}
+	}
+
+
+	static class Money {
+		int amount;
+		String currencyCode;
+
+		public Money(int i, String usd) {
+			this.amount = i;
+			this.currencyCode = usd;
+		}
+
+		@Override
+		public boolean equals(Object o) {
+			if (o == this)
+				return true;
+			if (!(o instanceof Money))
+				return false;
+			Money other = (Money)o;
+			boolean currencyCodeEquals = (this.currencyCode == null && other.currencyCode == null)
+					|| (this.currencyCode != null && this.currencyCode.equals(other.currencyCode));
+			return this.amount == other.amount && currencyCodeEquals;
+		}
+
+		@Override
+		public final int hashCode() {
+			int result = 17;
+			if (currencyCode != null) {
+				result = 31 * result + currencyCode.hashCode();
+			}
+			return result;
+		}
+	}
+
+	public static void main(String[] args) throws InterruptedException {
 	}
 }
