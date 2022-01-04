@@ -1,6 +1,6 @@
 package com.java.adawang.ClassicAlgorithms;
 
-import com.java.adawang.problems.utils.ListNode;
+import com.java.adawang.LeetCodeProblems.utils.ListNode;
 
 // # 141
 public class FloydCycleFindingAlgorithm {

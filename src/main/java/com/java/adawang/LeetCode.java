@@ -1,12 +1,5 @@
 package com.java.adawang;
 
-import com.java.adawang.problems.GraphProblems.UnionFind;
-
-import java.util.*;
-import java.util.concurrent.BrokenBarrierException;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.CyclicBarrier;
-
 public class LeetCode {
 	// "2-3*4"
 	public static int md(String s, int index){
