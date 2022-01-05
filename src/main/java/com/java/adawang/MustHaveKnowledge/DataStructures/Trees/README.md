@@ -2,9 +2,6 @@
 ![Tree](https://github.com/yangwang000/JavaAlgorithmAndProblems/blob/main/src/main/java/com/java/adawang/MustHaveKnowledge/DataStructures/pics/145_transverse.png) <br>
 Typically, for binary search tree, we can retrieve all the data in sorted order using in-order traversal. <br>
 
-Also, post-order is widely use in mathematical expression. It is easier to write a program to parse a post-order expression. Here is an example:
-![example](/Users/yangwang/IdeaProjects/JavaAlgorithmAndProblems/src/main/java/com/java/adawang/MustHaveKnowledge/DatagiStructures/pics/mathematical_expression.png)
-
 Also, post-order is widely use in mathematical expression. It is easier to write a program to parse a post-order expression. Here is an example: <br>
 ![example](https://github.com/yangwang000/JavaAlgorithmAndProblems/blob/main/src/main/java/com/java/adawang/MustHaveKnowledge/DataStructures/pics/mathematical_expression.png) <br>
 
