@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class ArraysStrings {
-	static class IsUnique{
+	class IsUnique{
 		//Implement an algorithm to determine if a string has all unique characters. What if you cannot use additional data structures?
-		public boolean isUnique(String s){
+		public boolean isUniqueSet(String s){
 			HashSet<Character> set = new HashSet<>();
 			for(Character c : s.toCharArray()){
 				if(!set.add(c)){
@@ -18,7 +18,7 @@ public class ArraysStrings {
 			return true;
 		}
 
-		public static boolean isUniqueChars(String s){
+		public boolean isUniqueChars(String s){
 			int checker = 0;
 			for(char c : s.toCharArray()){
 				int val = c - 'a';
@@ -34,9 +34,23 @@ public class ArraysStrings {
 
 	@Test
 	public void isUniqueTest(){
-//		System.out.println(IsUnique.isUniqueChars("abcda"));
-		int val = 0;
-		int b = 1 << val;
-		System.out.println(b);
+		String testInput0 = "abcdefghijklmnopqrstuvwxyz";
+		String testInput1 = "abcdef";
+		String testInput2 = "1234567890";
+		String testInput3 = "~!@#$%^&*()_+";
+		String testInput = testInput0;
+
+		long start, end;
+		boolean setRes;
+		IsUnique isUnique = new IsUnique();
+		start = System.currentTimeMillis();
+		setRes = isUnique.isUniqueSet(testInput);
+		end = System.currentTimeMillis();
+		System.out.println(setRes+ " " + (end-start));
+
+		start = System.currentTimeMillis();
+		setRes = isUnique.isUniqueChars(testInput);
+		end = System.currentTimeMillis();
+		System.out.println(setRes+ " " + (end-start));
 	}
 }
