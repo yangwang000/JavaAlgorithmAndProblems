@@ -1,9 +1,11 @@
 package com.java.adawang.MustHaveKnowledge.DataStructures;
 
+import com.java.adawang.MustHaveKnowledge.Algorithms.Backtracking.Combinations;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 public class ArraysStrings {
 	class IsUnique{
@@ -38,18 +40,24 @@ public class ArraysStrings {
 		String testInput1 = "abcdef";
 		String testInput2 = "1234567890";
 		String testInput3 = "~!@#$%^&*()_+";
-		String testInput = testInput0;
+		Combinations comb = new Combinations();
+		List<String> strings = comb.stringGenerator();
+		System.out.println(strings.size());
 
 		long start, end;
-		boolean setRes;
+		boolean setRes = false;
 		IsUnique isUnique = new IsUnique();
 		start = System.currentTimeMillis();
-		setRes = isUnique.isUniqueSet(testInput);
+		for(String s : strings){
+			setRes = isUnique.isUniqueSet(s);
+		}
 		end = System.currentTimeMillis();
 		System.out.println(setRes+ " " + (end-start));
 
 		start = System.currentTimeMillis();
-		setRes = isUnique.isUniqueChars(testInput);
+		for(String s : strings){
+			setRes = isUnique.isUniqueChars(s);
+		}
 		end = System.currentTimeMillis();
 		System.out.println(setRes+ " " + (end-start));
 	}
