@@ -21,7 +21,7 @@ Also, post-order is widely use in mathematical expression. It is easier to write
 You can easily figure out the original expression using the inorder traversal. However, it is not easy for a program to handle this expression since you have to check the priorities of operations. <br>
 If you handle this tree in postorder, you can easily handle the expression using a stack. Each time when you meet an operator, you can just pop 2 elements from the stack, calculate the result and push the result back into the stack.<br>
 ### 
-BFS
+**BFS**
 Previously, we have already introduced two main scenarios of using BFS: do **traversal** or **find the shortest path**. Typically, it happens in a tree or a graph. BFS can also be used in more abstract scenarios.<br>
 It will be important to determine the nodes and the edges before doing BFS in a specific question. Typically, the node will be an actual node or a status while the edge will be an actual edge or a possible transition.
 **Template 1**
@@ -82,5 +82,24 @@ int BFS(Node root, Node target) {
         step = step + 1;
     }
     return -1;          // there is no path from root to target
+}
+```
+
+**DFS**
+**Template: Recursion**
+It seems like we don't have to use any stacks when we implement DFS recursively. But actually, we are using the implicit stack provided by the system, also known as the _Call Stack_.
+```
+/*
+ * Return true if there is a path from cur to target.
+ */
+boolean DFS(Node cur, Node target, Set<Node> visited) {
+    return true if cur is target;
+    for (next : each neighbor of cur) {
+        if (next is not in visited) {
+            add next to visted;
+            return true if DFS(next, target, visited) == true;
+        }
+    }
+    return false;
 }
 ```
