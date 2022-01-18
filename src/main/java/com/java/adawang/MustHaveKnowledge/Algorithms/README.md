@@ -8,6 +8,91 @@
 |Radix Sort| k*n | ||
 __*Sorting Algorithms*__ https://en.wikipedia.org/wiki/Sorting_algorithm
 
+## Binary Search
+### Template I (left <= right):
+Initial Condition: left = 0, right = length-1
+Termination: left > right
+Searching Left: right = mid-1
+Searching Right: left = mid+1
+Problems: Sqrt(x); Guess Number Higher or Lower; Search in Rotated Sorted Array;
+```
+int binarySearch(int[] nums, int target){
+  if(nums == null || nums.length == 0)
+    return -1;
+
+  int left = 0, right = nums.length - 1;
+  while(left <= right){
+    // Prevent (left + right) overflow
+    int mid = left + (right - left) / 2;
+    if(nums[mid] == target){ return mid; }
+    else if(nums[mid] < target) { left = mid + 1; }
+    else { right = mid - 1; }
+  }
+
+  // End Condition: left > right
+  return -1;
+}
+```
+
+### Template II (left < right)
+Initial Condition: left = 0, right = length
+Termination: left == right
+Searching Left: right = mid
+Searching Right: left = mid+1
+Problems: First Bad Version; Find Minimum in Rotated Sorted Array; Find Peak Element;
+```
+int binarySearch(int[] nums, int target){
+  if(nums == null || nums.length == 0)
+    return -1;
+
+  int left = 0, right = nums.length;
+  while(left < right){
+    // Prevent (left + right) overflow
+    int mid = left + (right - left) / 2;
+    if(nums[mid] == target){ return mid; }
+    else if(nums[mid] < target) { left = mid + 1; }
+    else { right = mid; }
+  }
+
+  // Post-processing:
+  // End Condition: left == right
+  if(left != nums.length && nums[left] == target) return left;
+  return -1;
+}
+```
+
+### Template III (left + 1 < right)
+Initial Condition: left = 0, right = length-1
+Termination: left + 1 == right
+Searching Left: right = mid
+Searching Right: left = mid
+problems: Find First and Last Position of Element in Sorted Array; Find K Closest Elements;
+```
+int binarySearch(int[] nums, int target) {
+    if (nums == null || nums.length == 0)
+        return -1;
+
+    int left = 0, right = nums.length - 1;
+    while (left + 1 < right){
+        // Prevent (left + right) overflow
+        int mid = left + (right - left) / 2;
+        if (nums[mid] == target) {
+            return mid;
+        } else if (nums[mid] < target) {
+            left = mid;
+        } else {
+            right = mid;
+        }
+    }
+
+    // Post-processing:
+    // End Condition: left + 1 == right
+    if(nums[left] == target) return left;
+    if(nums[right] == target) return right;
+    return -1;
+}
+```
+
 ## Backtracking
 ### References:
 [1] https://cs.lmu.edu/~ray/notes/backtracking/

@@ -1,48 +1,45 @@
 package com.java.adawang;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.SortedMap;
+
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 
 public class LeetCode {
 
-	public class Solution {
-		int total;
+	class Solution {
+		public int minSubArrayLen(int target, int[] nums) {
+			int left = 0 , right = 0, ans = nums.length, sum = 0;
 
-		public int findTargetSumWays(int[] nums, int S) {
-			total = Arrays.stream(nums).sum();
-
-			int[][] memo = new int[nums.length][2 * total + 1];
-			for (int[] row : memo) {
-				Arrays.fill(row, Integer.MIN_VALUE);
-			}
-			return calculate(nums, 0, 0, S, memo);
-		}
-
-		public int calculate(int[] nums, int i, int sum, int S, int[][] memo) {
-			if (i == nums.length) {
-				if (sum == S) {
-					return 1;
-				} else {
-					return 0;
+			while(right < nums.length){
+				sum += nums[right];
+				if(sum == target){
+					ans = Math.min(right - left + 1, ans);
+					sum -= nums[left];
+					left++;
+					right++;
+				}else if(sum < target){
+					right++;
+				}else{
+					sum -= nums[left];
+					left++;
+					sum -= nums[right];
 				}
-			} else {
-				if (memo[i][sum + total] != Integer.MIN_VALUE) {
-					return memo[i][sum + total];
-				}
-				int add = calculate(nums, i + 1, sum + nums[i], S, memo);
-				int subtract = calculate(nums, i + 1, sum - nums[i], S, memo);
-				memo[i][sum + total] = add + subtract;
-				return memo[i][sum + total];
 			}
+
+			return ans;
 		}
 	}
 
 	@Test
-	public void test(){
-		Solution solution = new Solution();
-		int result =
-				solution.findTargetSumWays(new int[]{1,1,1,1,1}, 3);
-		System.out.println(result);
+	public void whenExceptionThrown_thenAssertionSucceeds() {
+		Solution s = new Solution();
+		int[] nums = {2,3,1,2,4,3};
+		int ans = s.minSubArrayLen(7, nums);
+		System.out.println(ans);
 	}
 }
