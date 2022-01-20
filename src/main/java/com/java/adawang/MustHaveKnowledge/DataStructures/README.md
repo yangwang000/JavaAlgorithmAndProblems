@@ -1,9 +1,11 @@
-## Strings
+<details>
+## <summary>Strings</summary>
 1. Check if characters are unique in a given string. There are always two choices: HashMap or  BitVector(Vector`s length depends on character set).
     Problems: IsUnique
 2. Check if two strings have identical character counts. (1)Sort two strings then check. (2)Use a letter array to keep the character counts.
     Problems: CheckPermutation
-    
+</details>
+
 ## Arrays
 1. Some problems requires in-place array manipulation, in these cases, try _**two pass**_ .
 2. Always remember there are  _**two pointers**_. And there are **_HashMap_** and **_HashSet_** ready to help in one pass search situations.
@@ -43,3 +45,84 @@ Also, post-order is widely use in mathematical expression. It is easier to write
 You can easily figure out the original expression using the inorder traversal. However, it is not easy for a program to handle this expression since you have to check the priorities of operations. <br>
 If you handle this tree in postorder, you can easily
 handle the expression using a stack. Each time when you meet an operator, you can just pop 2 elements from the stack, calculate the result and push the result back into the stack.
+
+## HashSet
+Typically, a hash set is used to check if a value has ever appeared or not.
+```
+// "static void main" must be defined in a public class.
+public class Main {
+    public static void main(String[] args) {
+        // 1. initialize the hash set
+        Set<Integer> hashSet = new HashSet<>();     
+        // 2. add a new key
+        hashSet.add(3);
+        hashSet.add(2);
+        hashSet.add(1);
+        // 3. remove the key
+        hashSet.remove(2);        
+        // 4. check if the key is in the hash set
+        if (!hashSet.contains(2)) {
+            System.out.println("Key 2 is not in the hash set.");
+        }
+        // 5. get the size of the hash set
+        System.out.println("The size of has set is: " + hashSet.size());     
+        // 6. iterate the hash set
+        for (Integer i : hashSet) {
+            System.out.print(i + " ");
+        }
+        System.out.println("are in the hash set.");
+        // 7. clear the hash set
+        hashSet.clear();
+        // 8. check if the hash set is empty
+        if (hashSet.isEmpty()) {
+            System.out.println("hash set is empty now!");
+        }
+    }
+}
+```
+
+## HashMap
+HashMap usage example:
+```
+// "static void main" must be defined in a public class.
+public class Main {
+    public static void main(String[] args) {
+        // 1. initialize a hash map
+        Map<Integer, Integer> hashmap = new HashMap<>();
+        // 2. insert a new (key, value) pair
+        hashmap.putIfAbsent(0, 0);
+        hashmap.putIfAbsent(2, 3);
+        // 3. insert a new (key, value) pair or update the value of existed key
+        hashmap.put(1, 1);
+        hashmap.put(1, 2);
+        // 4. get the value of specific key
+        System.out.println("The value of key 1 is: " + hashmap.get(1));
+        // 5. delete a key
+        hashmap.remove(2);
+        // 6. check if a key is in the hash map
+        if (!hashmap.containsKey(2)) {
+            System.out.println("Key 2 is not in the hash map.");
+        }
+        // 7. get the size of the hash map
+        System.out.println("The size of hash map is: " + hashmap.size()); 
+        // 8. iterate the hash map
+        for (Map.Entry<Integer, Integer> entry : hashmap.entrySet()) {
+            System.out.print("(" + entry.getKey() + "," + entry.getValue() + ") ");
+        }
+        System.out.println("are in the hash map.");
+        // 9. clear the hash map
+        hashmap.clear();
+        // 10. check if the hash map is empty
+        if (hashmap.isEmpty()) {
+            System.out.println("hash map is empty now!");
+        }
+    }
+}
+```
+
+### Scenario I - Provide More Information
+Given an array of integers, return indices of the two numbers such that they add up to a specific target. Tow Sum problem.
+### Scenario II - Aggregate by Key
+Given a string, find the first non-repeating character in it and return it's index. If it doesn't exist, return -1.
+### Design the Key
+Given an array of strings, group anagrams together.
