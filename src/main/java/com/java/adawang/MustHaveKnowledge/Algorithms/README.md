@@ -1,4 +1,4 @@
-## Sorting and Searching
+## Sorting
 |Name|Average Runtime|Worst Case|Memory|
 |---|---|---|---|
 |Bubble Sort|n*n| n * n |1|
@@ -97,7 +97,7 @@ int binarySearch(int[] nums, int target) {
 ### References:
 [1] https://cs.lmu.edu/~ray/notes/backtracking/
 
-## Traverse a Tree
+## BFS/DFS
 ![Tree](https://github.com/yangwang000/JavaAlgorithmAndProblems/blob/main/src/main/java/com/java/adawang/MustHaveKnowledge/DataStructures/pics/145_transverse.png) <br>
 Typically, for binary search tree, we can retrieve all the data in sorted order using in-order traversal. <br>
 
@@ -188,3 +188,7 @@ boolean DFS(Node cur, Node target, Set<Node> visited) {
     return false;
 }
 ```
+
+## Sliding Window
+One of typical Sliding-Window problems is : **Repeated DNA Sequences** . The solutions are based on sliding-window + hashset.
+![sliding-window]()
