@@ -191,4 +191,4 @@ boolean DFS(Node cur, Node target, Set<Node> visited) {
 
 ## Sliding Window
 One of typical Sliding-Window problems is : **Repeated DNA Sequences** . The solutions are based on sliding-window + hashset.
-![sliding-window]()
+![sliding-window](https://github.com/yangwang000/JavaAlgorithmAndProblems/blob/main/src/main/java/com/java/adawang/MustHaveKnowledge/Algorithms/pics/algorithms.png)
