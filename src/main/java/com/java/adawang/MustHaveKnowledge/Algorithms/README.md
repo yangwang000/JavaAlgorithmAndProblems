@@ -192,3 +192,9 @@ boolean DFS(Node cur, Node target, Set<Node> visited) {
 ## Sliding Window
 One of typical Sliding-Window problems is : **Repeated DNA Sequences** . The solutions are based on sliding-window + hashset.
 ![sliding-window](https://github.com/yangwang000/JavaAlgorithmAndProblems/blob/main/src/main/java/com/java/adawang/MustHaveKnowledge/Algorithms/pics/algorithms.png)
+Rabin-Karp algorithm is used to perform _**a multiple pattern search**_. It's used for **_plagiarism detection_** and in bioinformatics to look for _**similarities in two or more proteins**_.
+
+## String Searching Algorithms
+_Longest Repeating Substring_ and _Longest Duplicate Substring_ are typical [string-searching problems](https://en.wikipedia.org/wiki/String-searching_algorithm#Single-pattern_algorithms).
+Best algorithms have a linear execution time on average. The most popular ones are _Aho-Corasick_, _KMP_ and _Rabin-Karp_: _Aho-Corasick_ is used by fgrep, _KMP_ is used for Chinese string searching, and _Rabin-Karp_ is used for plagiarism detection and in bioinformatics to look for similarities in two or more proteins.
+
