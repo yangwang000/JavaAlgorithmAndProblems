@@ -17,8 +17,10 @@ The idea is to swap the first element with the end, advance to the next element 
 Sometimes, we can use **two pointers with different steps** to solve problems.
 Let's start with another classic problem: Given an array and a value, remove all instances of that value in-place and return the new length.
 This is a very common scenario of using the two-pointer technique when you need: One slow-runner and one fast-runner at the same time.
+
 **Two-Pointers**
 ![two-pointer](https://github.com/yangwang000/JavaAlgorithmAndProblems/blob/main/src/main/java/com/java/adawang/MustHaveKnowledge/DataStructures/pics/Array_Basics_Conclusion_1.png)
+
 **Circular Array**
 ![circular](https://github.com/yangwang000/JavaAlgorithmAndProblems/blob/main/src/main/java/com/java/adawang/MustHaveKnowledge/DataStructures/pics/Array_Basics_Conclusion_2.png)
 
