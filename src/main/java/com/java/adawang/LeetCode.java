@@ -11,39 +11,31 @@ import static org.junit.Assert.assertTrue;
 public class LeetCode {
 
 	class Solution {
-		List<String> output = new ArrayList<>();
-		String input;
-
-		private void backtrack(StringBuilder sb, int i){
-			if(sb.length() == input.length())
-				output.add(sb.toString());
-
-			if(i >= input.length())
-				return;
-
-			char c = input.charAt(i);
-			sb.append(c);
-			backtrack(sb, i+1);
-			sb.deleteCharAt(sb.length()-1);
-
-			if(!Character.isDigit(c)){
-				sb.append(Character.toUpperCase(c));
-				backtrack(sb, i+1);
-				sb.deleteCharAt(sb.length()-1);
+		public List<Integer> findDisappearedNumbers(int[] nums) {
+			Arrays.sort(nums);
+			List<Integer> ans = new ArrayList<>();
+			int left = 0, right = 0;
+			while(right < nums.length){
+				if(nums[left] != nums[right]){
+					if(nums[right] - nums[left] > 1){
+						int gap = nums[right] - nums[left];
+						for(int i = 1; i < gap; i++){
+							ans.add(nums[left] + i);
+						}
+					}
+				}
+				left = right;
+				right++;
 			}
-		}
 
-		public List<String> letterCasePermutation(String s) {
-			input = s.toLowerCase();
-			backtrack(new StringBuilder(), 0);
-			return output;
+			return ans;
 		}
 	}
 
 	@Test
 	public void whenExceptionThrown_thenAssertionSucceeds() {
 		Solution s = new Solution();
-		List<String> ans = s.letterCasePermutation("a1b2");
+		List<Integer> ans = s.findDisappearedNumbers(new int[]{1,1});
 		System.out.println(ans);
 	}
 }
