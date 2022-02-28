@@ -51,15 +51,13 @@ public class LeetCode {
 	@Test
 	public void whenExceptionThrown_thenAssertionSucceeds() {
 		Solution s = new Solution();
-		TreeNode root = new TreeNode(1);
-		root.left = new TreeNode(2);
-		root.right = new TreeNode(3);
-		root.left.left = new TreeNode(4);
-		root.right.left = new TreeNode(2);
-		root.right.right = new TreeNode(4);
-		root.right.left.left = new TreeNode(4);
-		List<TreeNode> output = s.findDuplicateSubtrees(root);
-		for(TreeNode node : output)
-		    System.out.println(node.val);
+		int A = 'A';
+		int z = 'z';
+		int a = 'a';
+		int Z = 'Z';
+		System.out.println(a);
+		System.out.println(z);
+		System.out.println(A);
+		System.out.println(Z);
 	}
 }
