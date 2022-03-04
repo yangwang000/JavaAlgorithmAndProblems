@@ -1,63 +1,38 @@
 package com.java.adawang;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.nio.channels.IllegalChannelGroupException;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LeetCode {
+	static int count;
+	int i;
+	{
+//This is an instance initializers. Run every time an object is created. //static and instance variables can be accessed System.out.println("Instance Initializer");
+		i = 6;
+		count = count + 1;
+		System.out.println("Count when Instance Initializer is run is " + count); }
 
+	public static void main(String[] args){
+		String regex = "(\\b\\w+\\b)(\\s+\\1\\b)+";
+		Pattern p = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
 
-	   public class TreeNode {
-	       int val;
-	       TreeNode left;
-	       TreeNode right;
-	       TreeNode() {}
-	       TreeNode(int val) { this.val = val; }
-	       TreeNode(int val, TreeNode left, TreeNode right) {
-	           this.val = val;
-	           this.left = left;
-	           this.right = right;
-	       }
-	   }
+		int numSentences = 1;
 
-	class Solution {
-		int curId = 1;
+		while (numSentences-- > 0) {
+			String input = "I love Love to To tO code .";
 
-		public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
-			Map<String, Integer> serialToId = new HashMap<>();
-			Map<Integer, Integer> idToCount = new HashMap<>();
-			List<TreeNode> res = new LinkedList<>();
-			postorder(root, serialToId, idToCount, res);
-			return res;
+			Matcher m = p.matcher(input);
+
+			// Check for subsequences of input that match the compiled pattern
+			while (m.find()) {
+				input = input.replaceAll(m.group(), m.group(1));
+			}
+
+			// Prints the modified sentence.
+			System.out.println(input);
 		}
-
-		private int postorder(TreeNode root, Map<String, Integer> serialToId, Map<Integer, Integer> idToCount, List<TreeNode> res) {
-			if (root == null) return 0;
-			int leftId = postorder(root.left, serialToId, idToCount, res);
-			int rightId = postorder(root.right, serialToId, idToCount, res);
-			String curSerial = leftId + "," + root.val + "," + rightId;
-			int serialId = serialToId.getOrDefault(curSerial, curId);
-			if (serialId == curId) curId++;
-			serialToId.put(curSerial, serialId);
-			idToCount.put(serialId, idToCount.getOrDefault(serialId, 0) + 1);
-			if (idToCount.get(serialId) == 2) res.add(root);
-			return serialId;
-		}
-
-	}
-
-	@Test
-	public void whenExceptionThrown_thenAssertionSucceeds() {
-		Solution s = new Solution();
-		int A = 'A';
-		int z = 'z';
-		int a = 'a';
-		int Z = 'Z';
-		System.out.println(a);
-		System.out.println(z);
-		System.out.println(A);
-		System.out.println(Z);
 	}
 }

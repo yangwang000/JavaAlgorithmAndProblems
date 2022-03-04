@@ -15,3 +15,6 @@ JVM Architecture Explained for Beginners: https://www.freecodecamp.org/news/jvm-
 
 ## Concurrency
 http://tutorials.jenkov.com/java-concurrency/index.html
+
+## Regex
+http://tutorials.jenkov.com/java-regex/index.html
