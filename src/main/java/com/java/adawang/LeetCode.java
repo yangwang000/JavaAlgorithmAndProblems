@@ -1,38 +1,49 @@
 package com.java.adawang;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.nio.channels.IllegalChannelGroupException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LeetCode {
-	static int count;
-	int i;
-	{
-//This is an instance initializers. Run every time an object is created. //static and instance variables can be accessed System.out.println("Instance Initializer");
-		i = 6;
-		count = count + 1;
-		System.out.println("Count when Instance Initializer is run is " + count); }
+	public static boolean canWin(int leap, int[] game) {
+		// Return true if you can win the game; otherwise, return false.
+		int len = game.length;
+		boolean[] map = new boolean[len];
+		map[0] = true;
+		for(int i = 0; i < len; i++){
+			if(game[i] == 0 && map[i]){
 
-	public static void main(String[] args){
-		String regex = "(\\b\\w+\\b)(\\s+\\1\\b)+";
-		Pattern p = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+			}
+		}
+		return false;
+	}
 
-		int numSentences = 1;
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		int q = scan.nextInt();
+		while (q-- > 0) {
+			int n = scan.nextInt();
+			int leap = scan.nextInt();
 
-		while (numSentences-- > 0) {
-			String input = "I love Love to To tO code .";
-
-			Matcher m = p.matcher(input);
-
-			// Check for subsequences of input that match the compiled pattern
-			while (m.find()) {
-				input = input.replaceAll(m.group(), m.group(1));
+			int[] game = new int[n];
+			for (int i = 0; i < n; i++) {
+				game[i] = scan.nextInt();
 			}
 
-			// Prints the modified sentence.
-			System.out.println(input);
+			System.out.println( (canWin(leap, game)) ? "YES" : "NO" );
+		}
+		scan.close();
+	}
+
+	@Test
+	public void test(){
+		Map<Integer, Integer> map = new HashMap<>();
+		map.put(1,1);
+		if(map.get(2) == null){
+			System.out.println("null");
 		}
 	}
 }
