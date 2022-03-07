@@ -2,7 +2,7 @@ package com.java.adawang.CoreJava.AnnotationsReflect;
 
 import java.lang.reflect.*;
 
-public class Annotations {
+public class AnnotationsExample {
 		public static void main(String[] args) {
 		String[] roles = new String[] {"SENIOR","DOG", "JUNIOR"};
 		int[] spends = new int[]{50, 5, 10};
