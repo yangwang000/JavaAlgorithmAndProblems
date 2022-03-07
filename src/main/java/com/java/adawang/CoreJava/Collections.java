@@ -4,13 +4,14 @@ import org.junit.Test;
 import java.util.*;
 import org.json.*;
 
-public class Comparators {
+public class Collections {
 	public HashMap<String, Integer> sortHashmap(HashMap<String, Integer> hm){
 		List<Map.Entry<String, Integer> > list =
 				new LinkedList<Map.Entry<String, Integer> >(hm.entrySet());
 
 		// Sort the list
-		Collections.sort(list, new Comparator<Map.Entry<String, Integer> >() {
+		java.util.Collections.sort(list, new Comparator<Map.Entry<String, Integer> >() {
+			@Override
 			public int compare(Map.Entry<String, Integer> o1,
 							   Map.Entry<String, Integer> o2)
 			{
@@ -55,7 +56,7 @@ public class Comparators {
 			jsonValues.add(jsonArr.getJSONObject(i));
 		}
 
-		Collections.sort(jsonValues, new Comparator<JSONObject>() {
+		java.util.Collections.sort(jsonValues, new Comparator<JSONObject>() {
 			private static final String KEY_NAME = "Name";
 			@Override
 			public int compare(JSONObject o1, JSONObject o2) {
