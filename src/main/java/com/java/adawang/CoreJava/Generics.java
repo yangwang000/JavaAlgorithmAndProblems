@@ -2,7 +2,9 @@ package com.java.adawang.CoreJava;
 
 import org.junit.Test;
 
-public class Generics {
+public class Generics{
+	String name;
+
 	public class Box<T>{
 		private T t;
 		public void set(T t) {this.t = t;}

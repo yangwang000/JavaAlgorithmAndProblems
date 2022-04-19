@@ -1,7 +1,5 @@
 package com.java.adawang.CoreJava.AnnotationsReflect;
 
-import com.java.adawang.CoreJava.AnnotationsReflect.FamilyBudget;
-
 class FamilyMember {
 	@FamilyBudget(userRole = "SENIOR", budgetLimit = 100)
 	public void seniorMember(int budget, int moneySpend) {
